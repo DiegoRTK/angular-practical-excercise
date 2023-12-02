@@ -1,0 +1,93 @@
+<div class="body">
+    <div class="table-header">
+        <div [formGroup]="filters">
+            <input type="text" formControlName="searchInput" placeholder="Search..." class="rounded">
+        </div>
+        <button type="button" (click)="createProduct()" class="add-button">Agregar</button>
+    </div>
+    <br>
+    <div class="table-container" *ngIf="!isLoading">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="center-content" scope="col">Logo</th>
+                    <th scope="col">Nombre del producto</th>
+                    <th scope="col">Descripción <fa-icon [icon]="faCircleInfo"></fa-icon></th>
+                    <th scope="col">Fecha de liberación <fa-icon [icon]="faCircleInfo"></fa-icon></th>
+                    <th scope="col">Fecha de reestructuración <fa-icon [icon]="faCircleInfo"></fa-icon></th>
+                </tr>
+            </thead>
+            <tbody *ngIf="productsLst.length > 0">
+                <tr *ngFor="let product of productsLst">
+                    <td class="center-content">
+                        <img class="logo-img" [src]="product.logo" alt="logo">
+                    </td>
+                    <td class="truncate-text">{{product.name}}</td>
+                    <td class="truncate-text">{{product.description}}</td>
+                    <td>{{product.date_release | date: 'fullDate': 'UTC'}}</td>
+                    <td>
+                        {{product.date_revision | date: 'fullDate': 'UTC'}}
+                        <span class="text-right">
+                            <div class="dropdown">
+                                <div class="ellipsis" (click)="toggleDropdown(product.name)">&#8942;</div>
+                                <div class="dropdown-content"
+                                    *ngIf="showDropdown && selectedNameProduct === product.name">
+                                    <a (click)="handleDropClick(product, eventEnum.VIEW)">Ver</a>
+                                    <a (click)="handleDropClick(product, eventEnum.UPDATE)">Editar</a>
+                                    <a (click)="handleDropClick(product, eventEnum.DELETE)">Eliminar</a>
+                                </div>
+                            </div>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="productsLst.length === 0">
+                <tr>
+                    <td colspan="5">
+                        Sin información disponible para mostrar.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="table-header" *ngIf="!isLoading">
+            <span class="text-left">{{productsLst.length }} Resultados</span>
+            <div [formGroup]="filters">
+                <select class="select-drop" formControlName="selectProducts">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isLoading">
+        <app-loading-component [message]="message"></app-loading-component>ß∑
+    </div>
+</div>
+
+<app-modal-component [showModal]="showModal" (closeModal)="closeModal()">
+    <div class="delete" *ngIf="isDeleteModal">
+        <div class="row row-title">
+            <p class="text-bold">¿Estás seguro de eliminar el producto {{selectedNameProduct}}?</p>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button type="button" class="button reset-button wide-button text-right"
+                    (click)="closeModal()">Cancelar</button>
+            </div>
+            <div class="col-6">
+                <button type="button" class="button add-button text-left wide-button"
+                    (click)="deleteProduct()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+    <div class="alert" *ngIf="!isDeleteModal">
+        <span class="text-center">Producto eliminado correctamente</span>
+        <div class="row text-center">
+            <div class="col-6">
+                <button type="button" class="button reset-button wide-button text-right"
+                    (click)="closeModal()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</app-modal-component>

@@ -1,0 +1,137 @@
+<div class="body">
+    <div class="form-container">
+        <div class="row text-center">
+            <h1 *ngIf="!isViewMode">Formulario de Registro</h1>
+            <h1 *ngIf="isViewMode">Información producto</h1>
+        </div>
+        <hr>
+        <form [formGroup]="productForm" *ngIf="!isLoading" (ngSubmit)="save()">
+            <div class="row">
+                <div class="col-6">
+                    <span>ID</span>
+                    <input [readOnly]="option !== 'create'" formControlName="id" type="text"
+                        class="rounded custom-input"
+                        [ngClass]="{ 'error': productForm.get('id')?.invalid && productForm.get('id')?.touched }">
+                    <div *ngIf="productForm.get('id')?.invalid && productForm.get('id')?.touched" class="error-message">
+                        <div *ngIf="productForm.get('id')?.hasError('required')">
+                            ID es requerido.
+                        </div>
+                        <div *ngIf="productForm.get('id')?.hasError('minlength')">
+                            ID debe tener al menos 3 caracteres.
+                        </div>
+                        <div *ngIf="productForm.get('id')?.hasError('maxlength')">
+                            ID no puede tener más de 10 caracteres.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <span>Nombre</span>
+                    <input [readOnly]="isViewMode" formControlName="name" type="text" class="rounded custom-input"
+                        [ngClass]="{ 'error': productForm.get('name')?.invalid && productForm.get('name')?.touched }">
+                    <div *ngIf="productForm.get('name')?.invalid && productForm.get('name')?.touched"
+                        class="error-message">
+                        <div *ngIf="productForm.get('name')?.hasError('required')">
+                            Nombre es requerido.
+                        </div>
+                        <div *ngIf="productForm.get('name')?.hasError('minlength')">
+                            Nombre debe tener al menos 5 caracteres.
+                        </div>
+                        <div *ngIf="productForm.get('name')?.hasError('maxlength')">
+                            Nombre no puede tener más de 100 caracteres.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <span>Descripción</span>
+                    <input [readOnly]="isViewMode" formControlName="description" type="text"
+                        class="rounded custom-input"
+                        [ngClass]="{ 'error': productForm.get('description')?.invalid && productForm.get('description')?.touched }">
+                    <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched"
+                        class="error-message">
+                        <div *ngIf="productForm.get('description')?.hasError('required')">
+                            Descripción es requerida.
+                        </div>
+                        <div *ngIf="productForm.get('description')?.hasError('minlength')">
+                            Descripción debe tener al menos 10 caracteres.
+                        </div>
+                        <div *ngIf="productForm.get('description')?.hasError('maxlength')">
+                            Descripción no puede tener más de 200 caracteres.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <span>Logo</span>
+                    <input [readOnly]="isViewMode" formControlName="logo" type="text" class="rounded custom-input"
+                        [ngClass]="{ 'error': productForm.get('logo')?.invalid && productForm.get('logo')?.touched }">
+                    <div *ngIf="productForm.get('logo')?.invalid && productForm.get('logo')?.touched"
+                        class="error-message">
+                        <div *ngIf="productForm.get('logo')?.hasError('required')">
+                            Logo es requerido.
+                        </div>
+                        <div
+                            *ngIf="!productForm.get('logo')?.hasError('required') && productForm.get('logo')?.hasError('invalidUrl')">
+                            La URL no es válida.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <span>Fecha liberación</span>
+                    <input [readOnly]="isViewMode" formControlName="date_release" type="date"
+                        class="rounded custom-input"
+                        [ngClass]="{ 'error': productForm.get('date_release')?.invalid && productForm.get('date_release')?.touched }">
+                    <div *ngIf="productForm.get('date_release')?.invalid && productForm.get('date_release')?.touched"
+                        class="error-message">
+                        <div *ngIf="productForm.get('date_release')?.hasError('required')">
+                            Fecha de liberación es requerida.
+                        </div>
+                        <div
+                            *ngIf="!productForm.get('date_release')?.hasError('required') && productForm.get('date_release')?.hasError('minDate')">
+                            La fecha de liberación no puede ser anterior a {{ minDate | date:'dd/MM/yyyy' }}.
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <span>Fecha revisión</span>
+                    <input [readOnly]="true" formControlName="date_revision" type="date" class="rounded custom-input"
+                        [ngClass]="{ 'error': productForm.get('date_revision')?.invalid && productForm.get('date_revision')?.touched }">
+                    <div *ngIf="productForm.get('date_revision')?.invalid && productForm.get('date_revision')?.touched"
+                        class="error-message">
+                        <div *ngIf="productForm.get('date_revision')?.hasError('required')">
+                            Fecha de revisión es requerida.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" *ngIf="!isViewMode">
+                <div class="col-6">
+                    <button type="button" (click)="resetForm()"
+                        class="button reset-button text-right">Reiniciar</button>
+                </div>
+                <div class="col-6">
+                    <button type="submit" class="button add-button text-left">Enviar</button>
+                </div>
+            </div>
+        </form>
+        <div *ngIf="isLoading">
+            <app-loading-component [message]="message"></app-loading-component>
+        </div>
+    </div>
+</div>
+
+<app-modal-component [showModal]="showModal" (closeModal)="closeModal()">
+    <span class="text-center">{{alertMessage}}</span>
+    <div class="row text-center">
+        <div class="col-6" *ngIf="resetFormMessage">
+            <button type="button" class="button reset-button wide-button text-right"
+                (click)="closeModal(true)">Cancelar</button>
+        </div>
+        <div class="col-6">
+            <button type="button" class="button add-button wide-button text-right"
+                (click)="closeModal()">Aceptar</button>
+        </div>
+    </div>
+</app-modal-component>
