@@ -1,6 +1,12 @@
-# Banco Pichincha
+# Banco Pichincha Angular Application
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
+
+## Installation
+
+1. Clone the repository. (https://github.com/DiegoRTK/angular-practical-excercise)
+2. Run `npm install` to install project dependencies.
+
 
 ## Development server
 
