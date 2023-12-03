@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
-import { Environment } from "src/app/environment/environment";
+import { HttpClient } from "@angular/common/http"
+import { Injectable } from "@angular/core"
+import { Observable } from "rxjs"
+import { Environment } from "src/app/environment/environment"
 
 @Injectable({
     providedIn: 'root'
