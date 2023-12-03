@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http'
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Subscription, finalize } from 'rxjs'
 import { PageResources } from 'src/app/helpers/page.resources'
@@ -137,13 +137,13 @@ export class AddEditProductComponent implements OnInit {
     }
   }
 
-  public closeModal(cancelBtn = false) {
+  public closeModal(cancelBtn = false): void {
     this.showModal = false
     if (this.resetFormMessage && !cancelBtn) this.cleanForm()
     if (this.creatingEditingModal) this.router.navigateByUrl(PageResources.product.home)
   }
 
-  public resetForm() {
+  public resetForm(): void {
     this.showModal = true
     this.alertMessage = '¿Estás seguro de reiniciar el formulario?'
     this.resetFormMessage = true
@@ -159,7 +159,7 @@ export class AddEditProductComponent implements OnInit {
     this.productForm.markAsUntouched()
   }
 
-  private minDateValidator(control: FormControl) {
+  private minDateValidator(control: FormControl): { minDate: string } | null {
     const selectedDate = control.value
     const selectedDateObject = new Date(selectedDate + 'T00:00:00')
     selectedDateObject.setHours(0, 0, 0, 0)
@@ -175,7 +175,7 @@ export class AddEditProductComponent implements OnInit {
   }
 
   private urlValidator(control: FormControl): { [key: string]: any } | null {
-    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/;
+    const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/
     return urlPattern.test(control.value) ? null : { invalidUrl: true }
   }
 }

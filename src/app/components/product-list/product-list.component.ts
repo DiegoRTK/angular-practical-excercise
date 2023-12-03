@@ -49,14 +49,14 @@ export class ProductListComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private productInsideService: InsideProductService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.filters.valueChanges.subscribe(value => {
       const number = Number(value.selectProducts)
       if (value.searchInput) {
         this.productsLst = this.productsLstBU.filter(row =>
-          (row.name.toLowerCase().includes(value.searchInput?.toLowerCase() as string) ||
+        (row.name.toLowerCase().includes(value.searchInput?.toLowerCase() as string) ||
           row.description.toLowerCase().includes(value.searchInput?.toLowerCase() as string))
         )
       } else if (value.selectProducts) {
@@ -64,7 +64,7 @@ export class ProductListComponent implements OnInit {
       } else if (value.searchInput && value.selectProducts) {
         this.productsLst = this.productsLstBU.slice(0, number)
         this.productsLst = this.productsLstBU.filter(row =>
-          (row.name.toLowerCase().includes(value.searchInput?.toLowerCase() as string) ||
+        (row.name.toLowerCase().includes(value.searchInput?.toLowerCase() as string) ||
           row.description.toLowerCase().includes(value.searchInput?.toLowerCase() as string))
         )
       } else {
@@ -83,9 +83,9 @@ export class ProductListComponent implements OnInit {
       this.showDropdown = false
     }
   }
-  
+
   public createProduct(): void {
-    
+
     this.router.navigateByUrl(`${PageResources.product.base}/create`)
   }
 
@@ -100,41 +100,41 @@ export class ProductListComponent implements OnInit {
     this.productsLst = this.productsLstBU.filter(row => (value.includes(row.name) || value.includes(row.description)))
   }
 
-  public toggleDropdown(productName: string) {
+  public toggleDropdown(productName: string): void {
     if (!productName) {
-      this.showDropdown = false;
+      this.showDropdown = false
     } else if (this.showDropdown && this.selectedNameProduct === productName) {
-      this.showDropdown = false;
+      this.showDropdown = false
     } else {
-      this.showDropdown = true;
-      this.selectedNameProduct = productName;
+      this.showDropdown = true
+      this.selectedNameProduct = productName
     }
   }
-  
 
-  public openModal() {
+
+  public openModal(): void {
     this.showModal = true
   }
 
-  public closeModal() {
+  public closeModal(): void {
     this.showModal = false
   }
 
   public handleDropClick(product: ProductModel, event: EVENT_BUTTON_ENUM): void {
-    switch(event) {
-      case EVENT_BUTTON_ENUM.DELETE: 
-      this.showModal = true
-      this.isDeleteModal = true
-      this.productId = product.id
-      break
+    switch (event) {
+      case EVENT_BUTTON_ENUM.DELETE:
+        this.showModal = true
+        this.isDeleteModal = true
+        this.productId = product.id
+        break
       case EVENT_BUTTON_ENUM.UPDATE:
-      this.router.navigateByUrl(`${PageResources.product.base}/edit`)
-      this.productInsideService.setProduct(product)
-      break
+        this.router.navigateByUrl(`${PageResources.product.base}/edit`)
+        this.productInsideService.setProduct(product)
+        break
       case EVENT_BUTTON_ENUM.VIEW:
         this.router.navigateByUrl(`${PageResources.product.base}/view`)
-      this.productInsideService.setProduct(product)
-      break
+        this.productInsideService.setProduct(product)
+        break
     }
   }
 
@@ -149,14 +149,14 @@ export class ProductListComponent implements OnInit {
         this.productsLstBU = this.productsLstBU.filter(row => row.id !== this.productId)
       },
       error: (error: HttpErrorResponse) => {
-        if(error.status === 200){
+        if (error.status === 200) {
           this.showModal = true
           this.isDeleteModal = false
           this.productsLst = this.productsLst.filter(row => row.id !== this.productId)
           this.productsLstBU = this.productsLstBU.filter(row => row.id !== this.productId)
         }
         else {
-        
+
         }
       }
     })

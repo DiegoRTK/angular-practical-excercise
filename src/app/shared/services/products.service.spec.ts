@@ -1,5 +1,3 @@
-// product.service.spec.ts
-
 import { TestBed } from '@angular/core/testing'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { ProductModel } from 'src/app/models/product'

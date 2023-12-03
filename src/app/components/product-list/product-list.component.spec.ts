@@ -42,7 +42,7 @@ describe('ProductListComponent', () => {
         FormBuilder,
         { provide: ProductService, useValue: productServiceMock },
         { provide: Router, useValue: routerMock },
-        InsideProductService, // You might want to provide any other services used by the component
+        InsideProductService,
       ],
     }).compileComponents()
 

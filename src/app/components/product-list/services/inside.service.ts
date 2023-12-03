@@ -23,7 +23,7 @@ export class InsideProductService {
 
 
     public getProduct(): Observable<ProductModel> {
-        const storedProduct = localStorage.getItem(this.productKey) ?? '';
+        const storedProduct = localStorage.getItem(this.productKey) ?? ''
         return storedProduct ? of(JSON.parse(storedProduct)) : this.$product.asObservable()
     }
 
