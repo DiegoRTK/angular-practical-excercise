@@ -73,6 +73,7 @@ describe('ProductListComponent', () => {
 
     productServiceMock.deleteProduct.mockReturnValue(of(deletedProduct))
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     component.handleDropClick({ id: productId } as any, EVENT_BUTTON_ENUM.DELETE)
 
     expect(component.isDeleteModal).toBe(true)

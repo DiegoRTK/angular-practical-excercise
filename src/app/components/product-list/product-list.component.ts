@@ -40,6 +40,10 @@ export class ProductListComponent implements OnInit {
 
   public eventEnum = EVENT_BUTTON_ENUM
 
+  public isError = false
+
+  public alertMessage = ''
+
   private productsLstBU: Array<ProductModel> = []
 
   private productId = ''
@@ -54,19 +58,20 @@ export class ProductListComponent implements OnInit {
   ngOnInit(): void {
     this.filters.valueChanges.subscribe(value => {
       const number = Number(value.selectProducts)
-      if (value.searchInput) {
+      if (value.searchInput && value.selectProducts) {
+        this.productsLst = this.productsLstBU.slice(0, number)
+        this.productsLst = this.productsLstBU.filter(row =>
+        (row.name.toLowerCase().includes(value.searchInput?.toLowerCase() as string) ||
+          row.description.toLowerCase().includes(value.searchInput?.toLowerCase() as string))
+        )
+      }
+      else if (value.searchInput) {
         this.productsLst = this.productsLstBU.filter(row =>
         (row.name.toLowerCase().includes(value.searchInput?.toLowerCase() as string) ||
           row.description.toLowerCase().includes(value.searchInput?.toLowerCase() as string))
         )
       } else if (value.selectProducts) {
         this.productsLst = this.productsLstBU.slice(0, number)
-      } else if (value.searchInput && value.selectProducts) {
-        this.productsLst = this.productsLstBU.slice(0, number)
-        this.productsLst = this.productsLstBU.filter(row =>
-        (row.name.toLowerCase().includes(value.searchInput?.toLowerCase() as string) ||
-          row.description.toLowerCase().includes(value.searchInput?.toLowerCase() as string))
-        )
       } else {
         this.productsLst = this.productsLstBU
       }
@@ -156,7 +161,9 @@ export class ProductListComponent implements OnInit {
           this.productsLstBU = this.productsLstBU.filter(row => row.id !== this.productId)
         }
         else {
-
+          this.isError = true
+          this.alertMessage = error.error
+          this.showModal = true
         }
       }
     })

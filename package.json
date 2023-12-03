@@ -8,11 +8,14 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest --verbose",
     "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "lint": "eslint 'src/**/*.ts'",
+    "lint:fix": "eslint --fix 'src/**/*.ts'"
   },
   "private": true,
   "dependencies": {
     "-": "^0.0.1",
+    "@angular-eslint/schematics": "^1.0.0",
     "@angular/animations": "^14.2.0",
     "@angular/common": "^14.2.0",
     "@angular/compiler": "^14.2.0",
@@ -36,6 +39,10 @@
     "@angular-devkit/build-angular": "^14.2.13",
     "@angular/cli": "~14.2.13",
     "@angular/compiler-cli": "^14.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.13.1",
+    "@typescript-eslint/parser": "^6.13.1",
+    "eslint": "^8.55.0",
+    "eslint-plugin-angular": "^4.1.0",
     "typescript": "~4.7.2"
   }
 }

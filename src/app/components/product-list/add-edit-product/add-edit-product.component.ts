@@ -174,7 +174,7 @@ export class AddEditProductComponent implements OnInit {
     return dateStr.split('T')[0]
   }
 
-  private urlValidator(control: FormControl): { [key: string]: any } | null {
+  private urlValidator(control: FormControl): { [key: string]: unknown } | null {
     const urlPattern = /^(ftp|http|https):\/\/[^ "]+$/
     return urlPattern.test(control.value) ? null : { invalidUrl: true }
   }

@@ -4,7 +4,6 @@ import { HTTP_INTERCEPTORS, HttpClient } from '@angular/common/http'
 import { RequestInterceptor } from './http-interceptor'
 
 describe('RequestInterceptor', () => {
-  let interceptor: RequestInterceptor
   let httpMock: HttpTestingController
 
   beforeEach(() => {
@@ -15,7 +14,6 @@ describe('RequestInterceptor', () => {
         { provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true },
       ],
     })
-    interceptor = TestBed.inject(RequestInterceptor)
     httpMock = TestBed.inject(HttpTestingController)
   })
 
