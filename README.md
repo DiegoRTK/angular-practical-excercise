@@ -11,11 +11,10 @@ This Angular project was created using [Angular CLI](https://github.com/angular/
 
 To run the development server, execute `npm start`. Navigate to `http://localhost:4200/` in your browser. The application will automatically reload whenever you modify any source files.
 
-## Code Scaffolding
-
 ## Lint
 To run eslint, execute `npm run test`
 
+## Code Scaffolding
 Generate a new component using `ng generate component component-name`. Other available options include `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ## Build
