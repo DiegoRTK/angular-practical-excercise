@@ -1,4 +1,4 @@
-# Banco Pichincha Angular Application
+# Banco Angular Application
 
 This Angular project was created using [Angular CLI](https://github.com/angular/angular-cli) version 14.2.13.
 
@@ -39,6 +39,3 @@ To use this project, follow these steps:
 
 This project is licensed under the [MIT License](LICENSE).
 
-## Acknowledgments
-
-Special thanks to [Devsu] for the opportunity to complete this exercise and for providing backend services.
